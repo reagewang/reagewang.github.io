@@ -1,4 +1,23 @@
-/* refer to https://github.com/spoqa/spoqa.github.com/blob/master/css/syntax.css */ 
+pre, code {
+  font-family: $code-font;
+}
+
+code.highlighter-rouge {
+  font-size: 90%;
+  color: $oc-indigo-9;
+  background-color: $oc-gray-1;
+  padding: .1em .2em;
+  border-radius: 3px;
+}
+
+pre.highlight {
+  font-size: $small-font-size;
+  padding: .45em .45em .45em .625em;
+  border: 1px solid $oc-gray-3;
+  border-radius: 3px;
+  margin: 1em 0;
+  overflow: scroll;
+}
 
 .highlight  { background: $oc-gray-0; }
 .highlight .c { color: #999988; font-style: italic } /* Comment */
