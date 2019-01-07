@@ -3,10 +3,10 @@
 #
 
 # Name of your site (displayed in the header)
-name: Note Blog
+name: 随笔文摘
 
 # Short bio or description (displayed in the header)
-description: Web Developer from Somewhere
+description: 精彩文章随时记录
 
 #
 # Flags below are optional
@@ -37,7 +37,7 @@ footer-links:
   email:
   facebook:
   flickr:
-  github: https://github.com/reagewang/reagewang.github.io
+  github: reagewang/reagewang.github.io
   googleplus: # anything in your profile username that comes after plus.google.com/
   instagram:
   linkedin:
