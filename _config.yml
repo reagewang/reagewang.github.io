@@ -3,7 +3,7 @@
 #
 
 # Name of your site (displayed in the header)
-name: Kiko Now
+name: Note Blog
 
 # Short bio or description (displayed in the header)
 description: Web Developer from Somewhere
@@ -22,17 +22,13 @@ avatar: https://raw.githubusercontent.com/barryclark/jekyll-now/master/images/je
 navigation:
   - name: Blog
     url: /
-  - name: About
-    url: /about
-  - name: Archive
-    url: /archive
   - name: Tags
     url: /tags
-  - name: Theme
-    url: https://github.com/AWEEKJ/kiko-now
+  - name: About
+    url: /about
 
 # Pagination
-paginate: 5
+paginate: 3
 
 # Includes an icon in the footer for each username you enter
 footer-links:
@@ -41,7 +37,7 @@ footer-links:
   email:
   facebook:
   flickr:
-  github: AWEEKJ/kiko-now
+  github: https://github.com/reagewang/reagewang.github.io
   googleplus: # anything in your profile username that comes after plus.google.com/
   instagram:
   linkedin:
@@ -49,7 +45,7 @@ footer-links:
   rss: # just type anything here for a working RSS icon
   stackoverflow: # your stackoverflow profile, e.g. "users/50476/bart-kiers"
   tumblr: # https://<username>.tumblr.com
-  twitter: jekyllrb
+  twitter: 
   youtube: # channel/<your_long_string> or user/<user-name>
 
 # Text under the icons in footer
