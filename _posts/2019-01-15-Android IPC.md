@@ -11,13 +11,7 @@ tags:
   - eventbus
 ---
 
-@[TOC](Android Service Binder Messenger AIDL EventBus)
-# 参考链接
-https://blog.csdn.net/luoyanglizi/article/details/51586437
-https://blog.csdn.net/luoyanglizi/article/details/51594016
-https://blog.csdn.net/luoyanglizi/article/details/51980630
-https://blog.csdn.net/luoyanglizi/article/details/52029091
-https://blog.csdn.net/luoyanglizi/article/details/51958091
+
 # Service
 ## startService
 ### 启动
@@ -908,3 +902,10 @@ public class AIDLActivity extends AppCompatActivity {
 ### Messenger与AIDL的比较
 首先，在实现的难度上，肯定是Messenger要简单的多，另外，使用Messenger还有一个显著的好处是它会把所有的请求排入队列，因此你几乎可以不用担心多线程可能会带来的问题。
 但是如果项目中有并发处理问题的需求，或者会有大量的并发请求，这个时候Messenger就不适用了——它的特性让它只能串行的解决请求。另外，我们在使用Messenger的时候只能通过Message来传递信息实现交互，但是在有些时候也许我们需要直接跨进程调用服务端的方法，这个时候又怎么办呢？只能使用AIDL。所以，这两种IPC方式各有各的优点和缺点，具体使用哪种就看具体的需求。
+
+# 参考链接
+https://blog.csdn.net/luoyanglizi/article/details/51586437
+https://blog.csdn.net/luoyanglizi/article/details/51594016
+https://blog.csdn.net/luoyanglizi/article/details/51980630
+https://blog.csdn.net/luoyanglizi/article/details/52029091
+https://blog.csdn.net/luoyanglizi/article/details/51958091
