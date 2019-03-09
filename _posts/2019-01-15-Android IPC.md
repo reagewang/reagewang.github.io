@@ -1,17 +1,11 @@
 ﻿---
 layout: post
 title: Android IPC
-tags:
-  - ipc
-  - android
-  - service
-  - binder
-  - messager
-  - aidl
-  - eventbus
+tags: [ipc,android,service,binder,messager,aidl,eventbus]
+comments: true
 ---
 
-Service
+Service/Binder/Messager/AIDL/EventBus
 
 ## startService
 ### 启动
