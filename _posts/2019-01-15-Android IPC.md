@@ -11,8 +11,8 @@ tags:
   - eventbus
 ---
 
+Service
 
-# Service
 ## startService
 ### 启动
 在其他组件中调用startService()方法后，服务即处于启动状态

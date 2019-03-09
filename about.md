@@ -4,7 +4,7 @@ title: 关于
 permalink: /about/
 ---
 
-敬请关注。
+收藏纪录文章。
 
 ### 联系我
 
