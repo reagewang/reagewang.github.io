@@ -13,7 +13,7 @@ description: 精彩文章随时记录
 #
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
-avatar: /image/jekyll-logo.png
+avatar: https://raw.githubusercontent.com/barryclark/jekyll-now/master/images/jekyll-logo.png
 
 
 # Tabs in header. There are 'Blog', 'About', 'Archive', 'Tags'

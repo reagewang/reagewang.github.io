@@ -1,10 +1,8 @@
 ---
 layout: page
-title: 关于
+title: 
 permalink: /about/
 ---
-
-纪录文章。
 
 # 联系我
 
