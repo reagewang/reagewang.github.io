@@ -6,10 +6,7 @@ comments: true
 ---
 
 **`QQmlApplicationEngine搭配Window`**
-加载以Window为根对象的QML文档，QML文档则拥有窗口的完整控制权，可以直接设置标题、窗口尺寸等属性。
-
-**`QQuickView搭配Item`**
-使用QQuickView显示QML文档，对窗口的控制权（比如设置窗口标题、Icon、窗口的最小尺寸等）在C++代码。
+加载以Window为根对象的QML文档，QML文档则拥有窗口的完整控制权，可以直接设置标题、窗口尺寸等属性。**`QQuickView搭配Item`**使用QQuickView显示QML文档，对窗口的控制权（比如设置窗口标题、Icon、窗口的最小尺寸等）在C++代码。
 
 # QQmlApplicationEngine搭配Window启动方式
 ---
