@@ -28,7 +28,7 @@ navigation:
     url: /about
 
 # Pagination
-paginate: 0
+paginate: 20
 
 # Includes an icon in the footer for each username you enter
 footer-links:
