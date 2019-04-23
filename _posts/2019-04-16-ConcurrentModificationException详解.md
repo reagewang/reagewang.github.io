@@ -34,13 +34,13 @@ java.util.ConcurrentModificationException详解
     */
 ```
 
-![img](/images/20190416/1.jpg)
+![img](/images/18/1.jpg)
 
 # 异常原因
 ---
 ArrayList的父类AbstarctList中有一个域modCount，每次对集合进行修改（增添元素，删除元素）时都会modCount++，而foreach的背后实现原理其实就是Iterator，等同于注释部分代码。在这里，迭代ArrayList的Iterator中有一个变量expectedModCount，该变量会初始化和modCount相等，但如果接下来如果集合进行修改modCount改变，就会造成expectedModCount!=modCount，此时就会抛出java.util.ConcurrentModificationException异常。
 
-![img](/images/20190416/2.jpg)
+![img](/images/18/2.jpg)
 
 # 源码
 ---

@@ -30,7 +30,7 @@ ExpandableListView的常用属性，以及一些样式的具体实现
 ## 初始状态：
 效果图：
 
-![img](/images/20190419/1.png)
+![img](/images/20/1.png)
 
 ## 改变childDivider的属性：
 ### color类型
@@ -39,7 +39,7 @@ android:childDivider="@color/blue"
 ```
 效果图：
 
-![img](/images/20190419/2.png)
+![img](/images/20/2.png)
 
 ### drawable类型
 ```xml
@@ -61,7 +61,7 @@ android:dividerHeight="5dp"
 ```
 效果图：
 
-![img](/images/20190419/3.png)
+![img](/images/20/3.png)
 
 `注意：不管是divider还是childDivider，如果需要将分割线去掉的时候，都不要将这个属性设置为@null`，如下所示：
 ```xml
@@ -70,11 +70,11 @@ android:childDivider="@null"
 ```
 这样设置会出问题，虽然在Android Studio中显示这样写没有问题，但如果是设置childDivider为@null，运行时点击父项会报错：
 
-![img](/images/20190419/4.png)
+![img](/images/20/4.png)
 
 错误信息下面还有，太长了就不截图了，所以如果设置childDivider为@null，运行时点击父项会报空指针错误，如果设置divider为@null的时候，运行时不会报错，但是会出现父列表项显示不全的问题：
 
-![img](/images/20190419/5.png)
+![img](/images/20/5.png)
 
 如图所见，本来不应该出现滚动条，手机屏幕是足以将整个列表项显示完的。`所以，如果需要使分割线消失的话，不要将这两个属性设置为@null，把它们的颜色设置为与背景颜色相同的颜色即可`。
 

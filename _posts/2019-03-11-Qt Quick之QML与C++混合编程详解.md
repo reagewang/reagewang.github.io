@@ -19,7 +19,7 @@ comments: true
 
 colorMaker 只是一个示例项目，我在 C++ 中实现一个 ColorMaker 类，它可以被注册为一个 QML 类型供 QML 像内建类型一样使用，它的实例也可以导出为 QML 上下文属性在 QML 中访问。我们的示例只是在界面顶部显示当前时间（时间文字的颜色随时间变化而变化），在界面中间显示一个变色矩形，在界面底部放置几个按钮来控制颜色如何变化。
 
-![img](../images/20190311/1.png)
+![img](../images/15/1.png)
 
 # 在 QML 中使用 C++ 类和对象
 ---
@@ -558,7 +558,7 @@ Rectangle {
 
 main.qml 的界面分成了三部分。
 
-![img](../images/20190311/1.png)
+![img](../images/15/1.png)
 
 顶部是一个 Text ，用来显示由 ColorMaker 提供的时间，我使用 Connections 对象，指定 target 为 colorMaker ，在 onCurrentTime 信号处理器中改变 timeLabel 的文本和颜色。这里使用 ColorMaker 的 timeColor 属性，该属性的读取函数是 timeColor ，回看一下 colorMaker.cpp 中的实现：
 
@@ -943,7 +943,7 @@ int main(int argc, char *argv[])
 
 后来，我又通过名字 "textLabel" 找到了 textLabel 对象。首先我企图使用 invodeMethod() 调用 setText() 方法来改变 textLabel 的文本，这个注定是会失败的，因为 QML 中的Text 对象对应 C++ QQuickText 类，而 QQuickText 没有名为 setText 的槽或者可调用方法。我查看了头文件 qquicktext_p.h ，发现它有一个使用 Q_INVOKABLE 宏修饰的 doLayout() 的方法，所以后来我又调用 doLayout() ，这次成功了。
 
-![img](../images/20190311/2.png)
+![img](../images/15/2.png)
 
 Hello World 这行字变成了红色，是因为我在 main() 函数中使用 setProperty 修改了 textLabel 的 color 属性。
 

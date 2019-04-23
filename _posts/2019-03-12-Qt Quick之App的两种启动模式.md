@@ -66,7 +66,7 @@ ApplicationWindow {
 }
 ```
 
-![img](../images/20190312/1.png)
+![img](../images/16/1.png)
 
 # QQuickView搭配Item
 ---
