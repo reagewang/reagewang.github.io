@@ -5,9 +5,7 @@ tags: [android,framework,hidl,hal]
 comments: true
 ---
 
-# 编写HAL
----
-AOSP有哪些HAL：
+# AOSP有哪些HAL：
 
 ![](https://upload-images.jianshu.io/upload_images/5439660-8164e88cfd918ab4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/608/format/webp)
 
@@ -15,7 +13,7 @@ AOSP有哪些HAL：
 
 Google只是作为一个框架的指导，和Framework层API的接口定义，这些接口的实现都得由HAL去完成。
 
-## Hello World
+## 示例 HelloWorld
 ### HIDL 接口文件定义
 进入代码，我们假设HelloWorld作为标准AOSP的HAL，我们就把代码揉进标准HAL层去，进入代码目录创建HIDL目录：
 ```

@@ -6,7 +6,6 @@ comments: true
 ---
 
 # 蓝牙服务启动位置
----
 > /android/frameworks/base/services/java/com/android/server/SystemService.java
 
 ```java
