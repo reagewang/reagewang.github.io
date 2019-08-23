@@ -5,7 +5,7 @@ tags: [android,hidl,hal]
 comments: true
 ---
 
-Android架构图
+# Android架构图
 
 ![](https://upload-images.jianshu.io/upload_images/7342824-9691627e4d4a6b4e?imageMogr2/auto-orient/strip%7CimageView2/2/w/486/format/webp)
 
