@@ -4,7 +4,8 @@ title: "Android 编写HIDL"
 tags: [android,framework,hidl,hal]
 comments: true
 ---
-
+  
+  
 # AOSP有哪些HAL：
 
 ![](https://upload-images.jianshu.io/upload_images/5439660-8164e88cfd918ab4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/608/format/webp)
