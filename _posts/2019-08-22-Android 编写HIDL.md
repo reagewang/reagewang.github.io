@@ -5,16 +5,12 @@ tags: [android,framework,hidl,hal]
 comments: true
 ---
 
-# AOSP有哪些HAL：
+AOSP上有哪些HAL,这些都是Android设备上的硬件，因为Google理论上只关心Android的框架层和上层软件，但是上层软件依赖于底层的硬件实现，但是每家手机厂商，或者说是CPU厂商底层硬件的实现都是不一样的，所以这个HAL层基本都是手机厂商或者CPU厂商去实现的。Google只是作为一个框架的指导，和Framework层API的接口定义，这些接口的实现都得由HAL去完成。
 
 ![](https://upload-images.jianshu.io/upload_images/5439660-8164e88cfd918ab4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/608/format/webp)
 
-这些啊都是Android设备上的硬件，因为Google理论上只关心Android的框架层和上层软件，但是上层软件依赖于底层的硬件实现，但是每家手机厂商，或者说是CPU厂商底层硬件的实现都是不一样的，所以这个HAL层基本都是手机厂商或者CPU厂商去实现的。
-
-Google只是作为一个框架的指导，和Framework层API的接口定义，这些接口的实现都得由HAL去完成。
-
-## 示例 HelloWorld
-### HIDL 接口文件定义
+# 示例 HelloWorld
+## HIDL 接口文件定义
 进入代码，我们假设HelloWorld作为标准AOSP的HAL，我们就把代码揉进标准HAL层去，进入代码目录创建HIDL目录：
 ```
 mkdir -p hardware/interfaces/helloworld/1.0/default
@@ -31,7 +27,7 @@ interface IHelloWorld {
 
 这里我们定义了一个IHelloWorld接口文件，简单的添加了一个funHelloWorld接口，传入是一个string，返回一个string，后面我们会来实现这个接口。
 
-### 生成 HAL 相关文件
+## 生成 HAL 相关文件
 Google帮我们提供了一些工具来生成HAL层相关的代码框架和代码实例，这样子我们只需要关心实现部分，而不需要写一堆无用代码，浪费时间在搞Makefile和一些低级错误上。
 
 使用hidl-gen工具
@@ -67,7 +63,7 @@ touch hardware/interfaces/helloworld/1.0/default/service.cpp
 ```
 我们写代码就写了一个IHelloWorld.hal，其余代码都是自动生成的，特别是HelloWorld.cpp和HelloWorld.h这两个文件是实现接口的关键文件。
 
-### 实现 HAL 实现端的共享库
+## 实现 HAL 实现端的共享库
 ```c++
 // HelloWorld.h
 struct HelloWorld : public IHelloWorld {
@@ -213,7 +209,7 @@ No need to regenerate ninja file
 #### build completed successfully (02:35 (mm:ss))
 ```
 
-### 调用流程
+## 调用流程
 上面呢我们完成了实现端的代码和编译，我们这节来看一下整个HIDL的调用流程，因为里面涉及到好几个库，有好多同学都被这些库给搞混了，我们来看看这些库的顺序吧。
 
 HIDL软件包中自动生成的文件会链接到与软件包同名的单个共享库。该共享库还会导出单个头文件IHelloWorld.h，用于在binder客户端和服务端的接口文件，下面的图诠释了我们的IHelloWorld.hal编译后生成的文件走向，从官网拷贝过来的，大家不要在乎文件名哈：
@@ -236,7 +232,7 @@ HIDL软件包中自动生成的文件会链接到与软件包同名的单个共�
 
 ![](https://upload-images.jianshu.io/upload_images/5439660-bf82ce77f6ab243e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/808/format/webp)
 
-### 启动binder server端进程
+## 启动binder server端进程
 还记得我们之前创建的两个文件吗，我们还没有去实现呢，先来看一下rc文件
 ```
 service helloworld_hal_service /vendor/bin/hw/android.hardware.helloworld@1.0-service
@@ -282,7 +278,7 @@ cc_binary {
 
 好了，接下来要看看client的代码怎么写了。
 
-### HIDL Client测试代码
+## HIDL Client测试代码
 我写代码喜欢一步一步来，每一步都搞个测试代码来测试，一来是验证每一步的功能，是为后面测试使用。
 
 写代码不是一件难事，写好代码是一件不容易的事情，好的代码都是通过大量测试来改善的，没有谁可以一次性的写好代码，所以大家在设计阶段一定要把测试接口留出来，不然的话后面返工去re-design的。
