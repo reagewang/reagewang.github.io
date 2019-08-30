@@ -34,12 +34,26 @@ comments: true
     }
 ```
 
-## 查找BluetoothService.class路径
-> /android/frameworks/base/services/core/java/com/android/server/BluetoothService.java
-> /android/frameworks/base/services/core/java/com/android/server/BluetoothManagerService.java
+## package com.android.server 查找BluetoothService.class路径
+> /frameworks/base/services/core/java/com/android/server/BluetoothService.java
+> /frameworks/base/services/core/java/com/android/server/BluetoothManagerService.java
 
-## 查找BluetoothAdapter.java路径
-> /android/frameworks/base/core/java/android/bluetooth/BluetoothAdapter.java
+## package android.bluetooth
+> /frameworks/base/core/java/android/bluetooth/BluetoothAdapter.java
 
-## 查找BluetoothManagerService继承的aidl接口
-> /android/system/bt/binder/android/bluetooth/IBluetoothManager.aidl
+## package android.bluetooth的aidl接口
+> /system/bt/binder/android/bluetooth/IBluetoothManager.aidl
+
+## package com.android.settingslib.bluetooth
+> /frameworks/base/packages/SettingsLib/src/com/android/settingslib/bluetooth
+
+## package com.android.bluetooth
+> /packages/apps/Bluetooth
+
+## 蓝牙同步联系人和通话记录目录以及相关类
+> \packages\apps\Bluetooth\src\com\android\bluetooth\pbapclient
+> \packages\apps\Bluetooth\src\com\android\bluetooth\pbapclient\PbapClientService.java
+> \packages\apps\Bluetooth\src\com\android\bluetooth\pbapclient\PbapClientStateMachine.java
+> \packages\apps\Bluetooth\src\com\android\bluetooth\pbapclient\PbapClientConnectionHandler.java
+> \packages\apps\Bluetooth\src\com\android\bluetooth\pbapclient\CallLogPullRequest.java
+> \packages\apps\Bluetooth\src\com\android\bluetooth\pbapclient\PhonebookPullRequest.java
