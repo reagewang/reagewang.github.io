@@ -349,3 +349,53 @@ public final class BluetoothAdapter {
     ...
 }
 ```
+\frameworks\base\services\core\java\com\android\server\BluetoothService.java
+```java
+class BluetoothService extends SystemService {
+    private BluetoothManagerService mBluetoothManagerService;
+
+    public BluetoothService(Context context) {
+        super(context);
+        mBluetoothManagerService = new BluetoothManagerService(context);
+    }
+
+    @Override
+    public void onStart() {
+    }
+
+    @Override
+    public void onBootPhase(int phase) {
+        if (phase == SystemService.PHASE_SYSTEM_SERVICES_READY) {
+            publishBinderService(BluetoothAdapter.BLUETOOTH_MANAGER_SERVICE,
+                    mBluetoothManagerService);
+        } else if (phase == SystemService.PHASE_ACTIVITY_MANAGER_READY) {
+            mBluetoothManagerService.handleOnBootPhase();
+        }
+    }
+
+    @Override
+    public void onSwitchUser(int userHandle) {
+        mBluetoothManagerService.handleOnSwitchUser(userHandle);
+    }
+
+    @Override
+    public void onUnlockUser(int userHandle) {
+        mBluetoothManagerService.handleOnUnlockUser(userHandle);
+    }
+}
+```
+\frameworks\base\services\core\java\com\android\server\BluetoothManagerService.java
+```java
+class BluetoothManagerService extends IBluetoothManager.Stub {
+    ...
+    private final IBluetoothCallback mBluetoothCallback = new IBluetoothCallback.Stub() {
+        @Override
+        public void onBluetoothStateChange(int prevState, int newState) throws RemoteException {
+            Message msg =
+                    mHandler.obtainMessage(MESSAGE_BLUETOOTH_STATE_CHANGE, prevState, newState);
+            mHandler.sendMessage(msg);
+        }
+    };
+    ...
+}
+```
