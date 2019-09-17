@@ -399,3 +399,11 @@ class BluetoothManagerService extends IBluetoothManager.Stub {
     ...
 }
 ```
+
+\packages\apps\Car\Dialer\src\com\android\car\dialer\ui\CallHistoryFragment.java
+\packages\apps\Car\Dialer\src\com\android\car\dialer\ui\CallHistoryListItemProvider.java
+\packages\apps\Car\Dialer\src\com\android\car\dialer\ui\CallLogListingTask.java
+\packages\apps\Car\Dialer\src\com\android\car\dialer\livedata\CallHistoryLiveData.java
+\packages\apps\Car\Dialer\src\com\android\car\dialer\telecom\PhoneLoader.java
+\frameworks\base\core\java\android\content\CursorLoader.java
+\frameworks\base\core\java\android\content\Loader.java
