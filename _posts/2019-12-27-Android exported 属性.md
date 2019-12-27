@@ -1,0 +1,31 @@
+---
+layout: post
+title: "Android exported 属性"
+tags: [android,exported]
+comments: true
+---
+
+exported 是Android中的四大组件 Activity，Service，Provider，Receiver 四大组件中都会有的一个属性。总体来说它的主要作用是：是否支持其它应用调用当前组件。如果包含有intent-filter 默认值为true; 没有intent-filter默认值为false。
+
+## 在Activity中
+该属性用来标示：当前Activity是否可以被另一个Application的组件启动：true允许被启动；false不允许被启动。
+如果被设置为了false，那么这个Activity将只会被当前Application或者拥有同样user ID的Application的组件调用。
+exported 的默认值根据Activity中是否有intent filter 来定。没有任何的filter意味着这个Activity只有在详细的描述了他的class name后才能被唤醒 .这意味着这个Activity只能在应用内部使用，因为其它application并不知道这个class的存在。所以在这种情况下，它的默认值是false。从另一方面讲，如果Activity里面至少有一个filter的话，意味着这个Activity可以被其它应用从外部唤起，这个时候它的默认值是true。
+其实，不只有这个属性可以指定Activity是否暴露给其它应用，也可以使用permission来限制外部实体唤醒当前Activity（详情见permission属性）
+
+## 在Service中
+该属性用来标示，其它应用的组件是否可以唤醒service或者和这个service进行交互：true可以，false不可以。如果为false，只有同一个应用的组件或者有着同样user ID的应用可以启动这个service或者绑定这个service。
+默认值根据当前service是否有intent filter来定。如果没有任何filter意味着当前service只有在被详细的描述class name后才会被唤醒。这意味这当前service只能在应用内部使用（因为其它应用不知道这个class name）.所以在这种情况下它的默认值为 false.从另一方面讲，如果至少有一个filter的话那么就意味着这个service可以被外部应用使用，这种情况下默认值为true。
+其实，不只有这个属性可以指定service是否暴露给其它应用。你也可以使用permission来限制外部实体唤醒当前service（详情见permission属性）
+
+## 在Provider中
+当前内容提供者是否会被其它应用使用： 
+true: 当前提供者可以被其它应用使用。任何应用可以使用Provider通过URI 来获得它，也可以通过相应的权限来使用Provider。
+false:当前提供者不能被其它应用使用。设置Android：exported=“false”来限制其它应用获得你应用的Provider。只有拥有同样的user ID 的应用可以获得当前应用的Provider。
+当Android sdk 的最小版本为16或者更低时他的默认值是true。如果是17和以上的版本默认值是false。
+可以通过Android：exported=“fasle” 和 permission来限制当前应用Provider是否会被其它应用获取。
+
+## 在Receiver中
+当前broadcast Receiver 是否可以从当前应用外部获取Receiver message 。true，可以；false 不可以。如果为false ,当前broadcast Receiver 只能收到同一个应用或者拥有同一 user ID 应用发出广播。
+默认值根据当前 broadcast Receiver 是否包含intent filter来定。如果没有任何的filter的话意味着只有在被详细的描述了class name的情况下才会被唤起。这意味着当前Receiver只能在应用内部被使用（因为其它应用不知道这个类的存在。）在这种情况下，默认值是false。如果至少包含一个filter意味着当前broadcast Receiver 将会收到来自系统或者其它应用的广播，所以这个时候默认值是true。
+不只有这个属性可以指定broadcast Receiver 是否暴露给其它应用。你也可以使用permission来限制外部应用给他发送消息。
