@@ -5,24 +5,21 @@ tags: [android,bluetooth]
 comments: true
 ---
 
-程序入口文件
-
 `bt\service\main.cc`
 ```c++
 int main(int argc, char* argv[]) {
     ...
-
-    // [标记]
-    if (!bluetooth::Daemon::Initialize()) {
+    
+    if (!bluetooth::Daemon::Initialize()) { // [标记] Daemon初始化
         LOG(ERROR) << "Failed to initialize Daemon";
         return EXIT_FAILURE;
     }
 
     // Start the main event loop.
-    bluetooth::Daemon::Get()->StartMainLoop();
+    bluetooth::Daemon::Get()->StartMainLoop(); // [标记] 开启mainloop
 
     // The main message loop has exited; clean up the Daemon.
-    bluetooth::Daemon::Get()->ShutDown();
+    bluetooth::Daemon::Get()->ShutDown(); // [标记] 关闭mainloop退出
 
     return EXIT_SUCCESS;
 }
@@ -32,60 +29,108 @@ int main(int argc, char* argv[]) {
 // static
 bool Daemon::Initialize() {
     ...
-
-    // [标记]
-    if (g_daemon->Init()) return true;
+    
+    g_daemon = new DaemonImpl(); // [标记] Daemon实现
+    if (g_daemon->Init()) return true; // [标记] DaemonImpl初始化
 
     ...
 }
 
 namespace bluetooth {
 
-namespace {
+    namespace {
 
-// The global Daemon instance.
-Daemon* g_daemon = nullptr;
+        // The global Daemon instance.
+        Daemon* g_daemon = nullptr;
 
-class DaemonImpl : public Daemon, public ipc::IPCManager::Delegate {
-    ...
+        class DaemonImpl : public Daemon, public ipc::IPCManager::Delegate {
+            ...
 
-    // ipc::IPCManager::Delegate implementation:
-    void OnIPCHandlerStarted(ipc::IPCManager::Type /* type */) override {
-        if (!settings_->EnableOnStart()) return;
-        // [标记]
-        adapter_->Enable(false /* start_restricted */);
+            // ipc::IPCManager::Delegate implementation:
+            void OnIPCHandlerStarted(ipc::IPCManager::Type /* type */) override {
+                if (!settings_->EnableOnStart()) return;        
+                adapter_->Enable(false /* start_restricted */); // [标记]
+            }
+
+            bool StartUpBluetoothInterfaces() {        
+                if (!hal::BluetoothInterface::Initialize()) goto failed; // [标记]
+
+                if (!hal::BluetoothGattInterface::Initialize()) goto failed; // [标记]
+
+                return true;
+
+            failed:
+                ShutDownBluetoothInterfaces();
+                return false;
+            }
+
+            bool SetUpIPC() {
+                ...
+
+                if (!ipc_manager_->Start(ipc::IPCManager::TYPE_BINDER, this)) { // [标记]
+                    LOG(ERROR) << "Failed to set up Binder IPCManager";
+                    return false;
+                }
+            
+                ...
+            }
+
+            bool Init() override {
+                ...
+                
+                if (!StartUpBluetoothInterfaces()) { // [标记]
+                    LOG(ERROR) << "Failed to set up HAL Bluetooth interfaces";
+                    return false;
+                }
+                
+                adapter_ = Adapter::Create(); // [标记]
+                ipc_manager_.reset(new ipc::IPCManager(adapter_.get())); // [标记]
+
+                if (!SetUpIPC()) { // [标记]
+                    CleanUpBluetoothStack();
+                    return false;
+                }
+                ...
+            }
+
+            ...
+        }
+
+        std::unique_ptr<Adapter> adapter_; // [标记]
+        std::unique_ptr<ipc::IPCManager> ipc_manager_; // [标记]
     }
-
-    bool StartUpBluetoothInterfaces() {
-        // [标记]
-        if (!hal::BluetoothInterface::Initialize()) goto failed;
-
-        if (!hal::BluetoothGattInterface::Initialize()) goto failed;
-
-        return true;
-
-    failed:
-        ShutDownBluetoothInterfaces();
+}
+```
+`bt\service\ipc\ipc_manager.cc`
+```c++
+bool IPCManager::Start(Type type, Delegate* delegate) {
+    ...
+    
+    binder_handler_ = new IPCHandlerBinder(adapter_, delegate); // [标记]
+    if (!binder_handler_->Run()) {
+        binder_handler_ = nullptr;
         return false;
     }
 
-    bool Init() override {
-        ...
+    ...
+}
+```
+`bt\service\ipc\binder\ipc_handler_binder.cc`
+```c++
+bool IPCHandlerBinder::Run() {
+    ...
 
-        // [标记]
-        if (!StartUpBluetoothInterfaces()) {
-            LOG(ERROR) << "Failed to set up HAL Bluetooth interfaces";
-            return false;
-        }
-
-        // [标记]
-        adapter_ = Adapter::Create();
-        ipc_manager_.reset(new ipc::IPCManager(adapter_.get()));
-
-        ...
+    // Notify the delegate. We do this in the message loop to avoid reentrancy.
+    if (delegate()) {
+        base::MessageLoop::current()->task_runner()->PostTask(
+            FROM_HERE, base::Bind(&IPCHandlerBinder::NotifyStarted, this)); // [标记]
     }
 
     ...
+}
+
+void IPCHandlerBinder::NotifyStarted() {
+  if (delegate()) delegate()->OnIPCHandlerStarted(IPCManager::TYPE_BINDER); // [标记] 回调bt\service\daemon.cc文件里的OnIPCHandlerStarted接口
 }
 ```
 `bt\service\hal\bluetooth_interface.cc`
