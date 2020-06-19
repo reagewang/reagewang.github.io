@@ -20,7 +20,7 @@ avatar: https://raw.githubusercontent.com/barryclark/jekyll-now/master/images/je
 # and URL Link(e.g. 'Theme' tab below) tabs. If you don't need one, just delete
 # it from the list(Delete '- name: ' and 'url: ', too!)
 navigation:
-  - name: 博客
+  - name: 信息分享
     url: /
   - name: 标签
     url: /tags
@@ -47,7 +47,7 @@ footer-links:
   youtube: # channel/<your_long_string> or user/<user-name>
 
 # Text under the icons in footer
-footer-text: © 2019 xtenglish.com
+footer-text: © 2019 <a href="www.beian.miit.gov.cn">鄂ICP备17030252号-1</a>
 
 # Enter your Disqus shortname (not your username) to enable commenting on posts
 # You can find your shortname on the Settings page of your Disqus account
