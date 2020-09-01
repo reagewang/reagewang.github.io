@@ -5,22 +5,23 @@ tags: [jetson nano,filesystem]
 comments: true
 ---
 
-# 在ubuntu主机交叉编译L4T软件包
-## 下载L4T源码
-```
-下载地址:https://developer.nvidia.com/embedded/L4T/r32_Release_v4.3/Sources/T210/public_sources.tbz2
-```
+
+在ubuntu主机交叉编译L4T软件包
+
+## [下载L4T Driver Package (BSP) Sources源码](https://developer.nvidia.com/embedded/L4T/r32_Release_v4.3/Sources/T210/public_sources.tbz2)
+
 ## 解压和提取内核目录
-```
+
+```bash
 tar -xjf public_sources.tbz2
 
-cd public_sources/
+cd Linux_for_Tegra/sources/public/
 
 tar -xjf kernel_src.tbz2
 
-tree -L 3 public_sources/
+tree -L 3 Linux_for_Tegra/sources/public/
 
-public_sources/
+Linux_for_Tegra/sources/public/
 ├── hardware
 │   └── nvidia
 │       ├── platform
@@ -92,52 +93,66 @@ public_sources/
 │       ├── security
 │       └── sound
 ```
+
 # 构建NVIDIA内核
 ## 安装预装软件
-```
-sudo apt install build-essential bc
-```
+> sudo apt install build-essential bc
+
 ## 安装L4T工具链
 工具链包含以下组件：
 * GCC版本：7.3.1
 * Binutils版本：2.28.2.20170706
 * Glibc版本：2.25
-### 下载和解压工具链
-```
+
+### [下载和解压工具链](http://releases.linaro.org/components/toolchain/binaries/7.3-2018.05/aarch64-linux-gnu/gcc-linaro-7.3.1-2018.05-i686_aarch64-linux-gnu.tar.xz)
+```shell
 wget http://releases.linaro.org/components/toolchain/binaries/7.3-2018.05/aarch64-linux-gnu/gcc-linaro-7.3.1-2018.05-i686_aarch64-linux-gnu.tar.xz
 
 sudo tar -xvf gcc-linaro-7.3.1-2018.05-i686_aarch64-linux-gnu.tar.xz -C /opt
 ```
+
 ### 修改环境变量
-```
-vim  ~/.bashrc
+> vim  ~/.bashrc
+> 
+> export PATH=/opt/gcc-linaro-7.3.1-2018.05-x86_64_aarch64-linux-gnu/bin/:$PATH
+> 
+> source ~/.bashrc
 
-export PATH=/opt/gcc-linaro-7.3.1-2018.05-x86_64_aarch64-linux-gnu/bin/:$PATH
-
-source ~/.bashrc
-```
-### 导出相关环境变量
+### 设置相关环境变量
 ```
 # 仅当前终端有效
+export PATH=/opt/gcc-linaro-7.3.1-2018.05-x86_64_aarch64-linux-gnu/bin:/home/wh/bin:/usr/sbin:/usr/bin:/bin:/sbin:/home/wh/.local/bin
 export LOCALVERSION=-tegra
 export CROSS_COMPILE=aarch64-linux-gnu-
 ```
 ### 创建.config 文件
+
+> cd kernel/kernel-4.9
+> 
+> make ARCH=arm64 tegra_defconfig
 ```
-cd kernel/kernel-4.9
-make ARCH=arm64 tegra_defconfig
+  HOSTCC  scripts/basic/fixdep
+  HOSTCC  scripts/kconfig/conf.o
+  SHIPPED scripts/kconfig/zconf.tab.c
+  SHIPPED scripts/kconfig/zconf.lex.c
+  SHIPPED scripts/kconfig/zconf.hash.c
+  HOSTCC  scripts/kconfig/zconf.tab.o
+  HOSTLD  scripts/kconfig/conf
+#
+# configuration written to .config
+#
 ```
 ### 编译内核
-```
-make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j4
+> make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j4
 ```
 编译得到的内核为arch/arm64/boot/Image
-### 安装Linux_for_Tegra
+```
+### 拷贝到Linux_for_Tegra
+```
+cp Linux_for_Tegra/source/public/kernel/kernel-4.9/arch/arm64/boot/Image Linux_for_Tegra/kernel/Image
+```
 # 烧录内核
-## 下载L4T Driver Package (BSP)
-```
-下载地址:https://developer.nvidia.com/embedded/L4T/r32_Release_v4.3/t210ref_release_aarch64/Tegra210_Linux_R32.4.3_aarch64.tbz2
-```
+## [下载L4T Driver Package (BSP)](https://developer.nvidia.com/embedded/L4T/r32_Release_v4.3/t210ref_release_aarch64/Tegra210_Linux_R32.4.3_aarch64.tbz2)
 ### 解压文件
 ```
 tar -xjf Jetson-210_Linux_R32.2.1_aarch64.tbz2
@@ -166,20 +181,17 @@ Linux_for_Tegra/
 ├── source_sync.sh
 └── TX1_boot-firmware-redundancy.txt
 ```
-## 下载Sample Root Filesystem
-```
-下载地址:https://developer.nvidia.com/embedded/L4T/r32_Release_v4.3/t210ref_release_aarch64/Tegra_Linux_Sample-Root-Filesystem_R32.4.3_aarch64.tbz2
-```
-### 将镜像加压到Linux_for_Tegra/rootfs目录下
+## [下载Sample Root Filesystem](https://developer.nvidia.com/embedded/L4T/r32_Release_v4.3/t210ref_release_aarch64/Tegra_Linux_Sample-Root-Filesystem_R32.4.3_aarch64.tbz2)
+### 将镜像解压到Linux_for_Tegra/rootfs目录下
 ```
 sudo tar -xjf Tegra_Linux_Sample-Root-Filesystem_R32.2.1_aarch64.tbz2 -C Linux_for_Tegra/rootfs
 
 cd Linux_for_Tegra/
 sudo ./apply_binaries.sh
 ```
-### 注意：必须以sudo运行解压和apply_binaries.sh
+> `注意：必须以sudo运行解压和apply_binaries.sh`
 ## 将BSP软件烧录到jetson nano module板子
-### 使jetson nano module进入recovery模式，接上usb到ubuntu 主机
+> 使jetson nano module进入recovery模式，接上usb到ubuntu 主机
 ```
 lsusb
 Bus 001 Device 057: ID 0955:7f21 NVidia Corp.
@@ -192,24 +204,21 @@ Bus 001 Device 057: ID 0955:7f21 NVidia Corp.
 5. 7018 for Jetson TX2i
 6. 7418 for Jetson TX2 4GB
 7. 7721 Jetson TX1
-
 #### 根据board执行烧录命令
-```
-sudo ./flash.sh jetson-nano-emmc mmcblk0p1
-```
+> sudo ./flash.sh jetson-nano-emmc mmcblk0p1
 #### 每一块板对应的配置文件
 ## 覆盖L4T Driver Package (BSP) Sources编译结果
 ```
 cd kernel/kernel-4.9/
 
 # 内核
-cp kernel/kernel-4.9/arch/arm64/boot/Image Linux_for_Tegra/kernel/Image
+cp arch/arm64/boot/Image /home/wh/nfs/Linux_for_Tegra/kernel/Image
 
 # 设备树
-cp arch/arm64/boot/Image ../../../Linux_for_Tegra/kernel/Image
+cp arch/arm64/boot/dts /home/wh/nfs/Linux_for_Tegra/kernel/dts
 
 # 内核模块
-sudo make ARCH=arm64 modules_install INSTALL_MOD_PATH=../../../Linux_for_Tegra/rootfs/
+sudo make ARCH=arm64 modules_install INSTALL_MOD_PATH=/home/wh/nfs/Linux_for_Tegra/rootfs/
 ```
 # 在jetson nano上直接编译内核
 将public_sources.tbz2复制到nano板上并解压。
@@ -231,4 +240,104 @@ $ time make -j5 modules
 # Install modules and kernel image
 $ sudo make modules_install
 $ sudo cp arch/arm64/boot/Image /boot/Image
+```
+# Tegra_Linux_Sample-Root-Filesystem_R32.4.3_aarch64.tbz2解压缩文件夹大小
+```
+/bin 11.3M
+/dev 
+/etc 6.9M
+/home 
+
+/lib 357.7M
+/lib/firmware 321M
+/lib/aarch64-linux-gnu 18M
+
+/media 
+/mnt
+/opt
+/proc
+/root
+/run 115.5KB
+/sbin 11.2M
+/snap
+/srv
+/sys
+/tmp
+
+/usr 3.3GB
+/usr/bin 401.6M
+/usr/sbin 22.7M
+/usr/include 29.8M
+/usr/lib 2.1GB
+/usr/share 802.8M
+
+/usr/lib/libreoffice 273M
+/usr/lib/debug 35M
+/usr/lib/python3.6 22M
+/usr/lib/chromium-browser 232M
+/usr/lib/gcc 67M
+/usr/lib/git-core 20M
+/usr/lib/thunderbird 154M
+/usr/lib/aarch64-linux-gnu 900M
+/usr/lib/python2.7 29M
+/usr/lib/python3 129M
+/usr/lib/snapd 45M
+
+/usr/share/libreoffice 14M
+/usr/share/example-content 13M
+/usr/share/help 40M
+/usr/share/vim 32M
+/usr/share/ibus 40M
+/usr/share/doc 41M
+/usr/share/backgrounds 37M
+/usr/share/qt5 13M
+/usr/share/sounds 16M
+/usr/share/midi 33M
+/usr/share/locale 101M
+/usr/share/fonts 163M
+/usr/share/perl 21M
+/usr/share/icons 96M
+/usr/share/poppler 12M
+/usr/share/themes 21M
+
+/var 105.7M
+/var/cache 34.4M
+/var/lib 71.2M
+```
+按字节降序排列文件或文件夹大小
+> du -s * | sort -rn
+
+```
+/usr/lib 2.1GB
+920684	aarch64-linux-gnu
+278532	libreoffice
+236748	chromium-browser
+178512	python3
+156684	thunderbird
+68280	gcc
+45804	snapd
+35288	debug
+28712	python2.7
+22016	python3.6
+19528	git-core
+
+/usr/share 802.8M
+166684	fonts
+102972	locale
+97464	icons
+41608	doc
+40920	ibus
+40276	help
+37360	backgrounds
+32852	midi
+31768	vim
+21036	perl
+20628	themes
+15708	sounds
+14256	libreoffice
+13600	i18n
+13036	example-content
+13016	qt5
+12252	poppler
+
 ```
