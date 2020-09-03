@@ -341,3 +341,46 @@ $ sudo cp arch/arm64/boot/Image /boot/Image
 12252	poppler
 
 ```
+
+# 挂载磁盘不成功显示mount: /mnt: wrong fs type, bad option, bad superblock
+```
+#mount /dev/sdb2 /mnt
+mount: /mnt: wrong fs type, bad option, bad superblock on /dev/sdb2, missing codepage or helper program, or other error.
+
+输入 lsblk  -f 查看 /dev/sdb2 有没有文件系统格式
+
+#lsblk -f
+NAME   FSTYPE  LABEL                      UUID                                 MOUNTPOINT
+sda                                                                           
+├─sda1 ext4                                 01cc8123-a156-44ee-9552-9419665cf69a /boot
+├─sda2 xfs                                   62121852-d67e-4a7b-b626-198c0c01f77f /
+├─sda3 swap                               876fcdf2-1a4e-4318-89ed-60a9432ddc35 [SWAP]
+├─sda4                                                                        
+└─sda5 xfs                                   27feb26d-369a-4884-8a81-820a86414e33 /data
+sdb                                                                           
+├─sdb1                                                                        
+├─sdb2                                          
+└─sdb3                                                                        
+sr0    iso9660 CentOS-8-1-1911-x86_64-dvd 2020-01-03-21-42-40-00  
+
+可以看到 sdb2 并没有文件系统格式
+
+输入 mkfs  -t  ext2  /dev/sdb2 格式化磁盘  
+
+输入 mount  /dev/sdb2  /mnt
+
+#df -h
+Filesystem      Size  Used Avail Use% Mounted on
+devtmpfs        887M     0  887M   0% /dev
+tmpfs           904M     0  904M   0% /dev/shm
+tmpfs           904M  9.4M  894M   2% /run
+tmpfs           904M     0  904M   0% /sys/fs/cgroup
+/dev/sda2        50G  4.4G   46G   9% /
+/dev/sda5        30G  247M   30G   1% /data
+/dev/sda1       2.0G  143M  1.7G   8% /boot
+tmpfs           181M  1.2M  180M   1% /run/user/42
+tmpfs           181M  4.0K  181M   1% /run/user/0
+/dev/sdb2        92M  1.6M   86M   2% /mnt
+
+可以看到 sdb2 已经挂载磁盘了        
+```
