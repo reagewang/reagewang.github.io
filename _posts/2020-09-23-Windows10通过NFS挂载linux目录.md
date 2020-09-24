@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Windows10通过NFS挂载linux目录"
-tags: [windows]
+tags: [windows 10,nfs,linux]
 comments: true
 ---
 

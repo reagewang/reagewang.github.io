@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Jetson nano 测CPU GPU温度"
-tags: [linux, cpu, gpu, jetson nano, ubuntu]
+title: "Jetson nano 获取CPU GPU温度"
+tags: [linux, cpu, gpu, jetson nano, ubuntu,jetson nano]
 comments: true
 ---
 
@@ -41,7 +41,7 @@ sys.exit(main._main())
 ## 使用
 > sudo jtop
 
-
+## 相关文件
 /usr/bin/tegrastats
 /sys/devices/virtual/thermal/thermal_zone[0-5]]/type
 /sys/devices/virtual/thermal/thermal_zone[0-5]]/temp

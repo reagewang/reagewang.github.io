@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "QtCreator加入cmake"
-tags: [qt,cmake]
+tags: [cmake,qtcreator]
 comments: true
 ---
 
