@@ -170,3 +170,120 @@ time_t stringTotime_t(std::string str)
     }
     std::cout << '\n';
 ```
+
+```
+linux高精度struct timespec 和 struct timeval
+一、struct timespec 定义：
+
+typedef long time_t;
+#ifndef _TIMESPEC
+#define _TIMESPEC
+struct timespec {
+time_t tv_sec; // seconds 
+long tv_nsec; // and nanoseconds 
+};
+#endif
+struct timespec有两个成员，一个是秒，一个是纳秒, 所以最高精确度是纳秒。
+一般由函数int clock_gettime(clockid_t, struct timespec *)获取特定时钟的时间，常用如下4种时钟：
+CLOCK_REALTIME 统当前时间，从1970年1.1日算起
+CLOCK_MONOTONIC 系统的启动时间，不能被设置
+CLOCK_PROCESS_CPUTIME_ID 本进程运行时间
+CLOCK_THREAD_CPUTIME_ID 本线程运行时间
+struct tm *localtime(const time_t *clock);  //线程不安全
+struct tm* localtime_r( const time_t* timer, struct tm* result );//线程安全
+size_t strftime (char* ptr, size_t maxsize, const char* format,const struct tm* timeptr );
+
+二、struct timeval 定义：
+
+struct timeval {
+time_t tv_sec; // seconds 
+long tv_usec; // microseconds 
+};
+struct timezone{ 
+int tz_minuteswest; //miniutes west of Greenwich 
+int tz_dsttime; //type of DST correction 
+};
+
+struct timeval有两个成员，一个是秒，一个是微秒, 所以最高精确度是微秒。
+一般由函数int gettimeofday(struct timeval *tv, struct timezone *tz)获取系统的时间 
+
+#include<stdio.h>
+#include<time.h>
+#include<sys/time.h>
+
+void nowtime_ns()
+{
+    printf("---------------------------struct timespec---------------------------------------\n");
+    printf("[time(NULL)]     :     %ld\n", time(NULL));
+    struct timespec ts;
+    clock_gettime(CLOCK_REALTIME, &ts);
+    printf("clock_gettime : tv_sec=%ld, tv_nsec=%ld\n", ts.tv_sec, ts.tv_nsec);
+
+    struct tm t;
+    char date_time[64];
+    strftime(date_time, sizeof(date_time), "%Y-%m-%d %H:%M:%S", localtime_r(&ts.tv_sec, &t));
+    printf("clock_gettime : date_time=%s, tv_nsec=%ld\n", date_time, ts.tv_nsec);
+}
+void nowtime_us()
+{
+    printf("---------------------------struct timeval----------------------------------------\n");
+    printf("[time(NULL)]    :    %ld\n", time(NULL));
+    struct timeval us;
+    gettimeofday(&us,NULL);
+    printf("gettimeofday: tv_sec=%ld, tv_usec=%ld\n", us.tv_sec, us.tv_usec);
+
+    struct tm t;
+    char date_time[64];
+    strftime(date_time, sizeof(date_time), "%Y-%m-%d %H:%M:%S", localtime_r(&us.tv_sec, &t));
+    printf("gettimeofday: date_time=%s, tv_usec=%ld\n", date_time, us.tv_usec);
+}
+
+int main(int argc, char* argv[])
+{
+    nowtime_ns();
+    printf("\n");
+    nowtime_us();
+    printf("\n");
+    return 0;
+}
+
+#include <time.h>
+
+// 返回自系统开机以来的毫秒数（tick）
+unsigned long GetTickCount()
+{
+    struct timespec ts;
+
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+
+    return (ts.tv_sec * 1000 + ts.tv_nsec / 1000000);
+}
+
+int main()
+{
+    struct timespec time1 = { 0, 0 };
+
+    clock_gettime(CLOCK_REALTIME, &time1);
+    printf("CLOCK_REALTIME: %d, %d\n", time1.tv_sec, time1.tv_nsec);
+
+    clock_gettime(CLOCK_MONOTONIC, &time1);
+    printf("CLOCK_MONOTONIC: %d, %d\n", time1.tv_sec, time1.tv_nsec);
+
+    clock_gettime(CLOCK_MONOTONIC_RAW, &time1);
+    printf("CLOCK_MONOTONIC_RAW: %d, %d\n", time1.tv_sec, time1.tv_nsec);
+
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &time1);
+    printf("CLOCK_PROCESS_CPUTIME_ID: %d, %d\n", time1.tv_sec,
+           time1.tv_nsec);
+
+    clock_gettime(CLOCK_THREAD_CPUTIME_ID, &time1);
+    printf("CLOCK_THREAD_CPUTIME_ID: %d, %d\n", time1.tv_sec,
+           time1.tv_nsec);
+
+    printf("\n%d\n", time(NULL));
+
+    printf("tick count in ms: %ul\n", GetTickCount());
+
+    return 0;
+}
+```
