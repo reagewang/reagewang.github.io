@@ -56,3 +56,11 @@ win+R->cmd
 mount IP:/nfsroot X:    (IP为NFS服务器得IP，/nfsroot为你挂载得目录路径)
 
 成功挂载,打开我的点脑,你即可在你网络位置看到 X:盘了
+
+window连接linux nfs服务器 —— 网络错误 53
+
+NFS服务器有一个”在非安全模式工作（允许更高的端口号）“的选项。Windows NFS客户端经常使用的是大的端口号。你可以在你的共享项设置中开启这个选项 例如：/share *(insecure,rw)
+
+或者
+
+重启服务 sudo service nfs-kernel-server restart
