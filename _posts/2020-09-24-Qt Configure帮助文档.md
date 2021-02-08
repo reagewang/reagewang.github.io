@@ -11,43 +11,26 @@ comments: true
 + /home/wanghu/Downloads/qt-everywhere-opensource-src-5.9.9/qtbase/configure -top-level -help
 Usage:  configure [options] [assignments]
 
-Configure understands variable assignments like VAR=value on the command line.
-Each uppercased library name (obtainable with -list-libraries) supports the
-suffixes _INCDIR, _LIBDIR, _PREFIX (INCDIR=PREFIX/include, LIBDIR=PREFIX/lib),
-_LIBS, and - on Windows and Darwin - _LIBS_DEBUG and _LIBS_RELEASE. E.g.,
-ICU_PREFIX=/opt/icu42 ICU_LIBS="-licui18n -licuuc -licudata".
+Configure understands variable assignments like VAR=value on the command line. Each uppercased library name (obtainable with -list-libraries) supports the suffixes _INCDIR, _LIBDIR, _PREFIX (INCDIR=PREFIX/include, LIBDIR=PREFIX/lib), _LIBS, and - on Windows and Darwin - _LIBS_DEBUG and _LIBS_RELEASE. E.g., ICU_PREFIX=/opt/icu42 ICU_LIBS="-licui18n -licuuc -licudata".
 
-It is also possible to manipulate any QMAKE_* variable, to amend the values
-from the mkspec for the build of Qt itself, e.g., QMAKE_CXXFLAGS+=-g3.
+It is also possible to manipulate any QMAKE_* variable, to amend the values from the mkspec for the build of Qt itself, e.g., QMAKE_CXXFLAGS+=-g3.
 
-Note that the *_LIBS* and QMAKE_* assignments manipulate lists, so items
-containing meta characters (spaces in particular) need to be quoted according
-to qmake rules. On top of that, the assignments as a whole need to be quoted
-according to shell rules. It is recommended to use single quotes for the inner
-quoting and double quotes for the outer quoting.
+Note that the *_LIBS* and QMAKE_* assignments manipulate lists, so items containing meta characters (spaces in particular) need to be quoted according to qmake rules. On top of that, the assignments as a whole need to be quoted according to shell rules. It is recommended to use single quotes for the inner quoting and double quotes for the outer quoting.
 
 Top-level installation directories:
-  -prefix <dir> ...... The deployment directory, as seen on the target device.
-                       [/usr/local/Qt-$QT_VERSION, $PWD if -developer-build]
-  -extprefix <dir> ... The installation directory, as seen on the host machine.
-                       [SYSROOT/PREFIX]
-  -hostprefix [dir] .. The installation directory for build tools running on
-                       the host machine. If [dir] is not given, the current
-                       build directory will be used. [EXTPREFIX]
-  -external-hostbindir <path> ... Path to Qt tools built for this machine.
-                       Use this when -platform does not match the current
-                       system, i.e., to make a Canadian Cross Build.
+  -prefix <dir> ...... The deployment directory, as seen on the target device. [/usr/local/Qt-$QT_VERSION, $PWD if -developer-build]
+  -extprefix <dir> ... The installation directory, as seen on the host machine. [SYSROOT/PREFIX]
+  -hostprefix [dir] .. The installation directory for build tools running on the host machine. If [dir] is not given, the current build directory will be used. [EXTPREFIX]
+  -external-hostbindir <path> ... Path to Qt tools built for this machine. Use this when -platform does not match the current system, i.e., to make a Canadian Cross Build.
 
-Fine tuning of installation directory layout. Note that all directories
-except -sysconfdir should be located under -prefix/-hostprefix:
+Fine tuning of installation directory layout. Note that all directories except -sysconfdir should be located under -prefix/-hostprefix:
 
   -bindir <dir> ......... Executables [PREFIX/bin]
   -headerdir <dir> ...... Header files [PREFIX/include]
   -libdir <dir> ......... Libraries [PREFIX/lib]
   -archdatadir <dir> .... Arch-dependent data [PREFIX]
   -plugindir <dir> ...... Plugins [ARCHDATADIR/plugins]
-  -libexecdir <dir> ..... Helper programs [ARCHDATADIR/bin on Windows,
-                          ARCHDATADIR/libexec otherwise]
+  -libexecdir <dir> ..... Helper programs [ARCHDATADIR/bin on Windows, ARCHDATADIR/libexec otherwise]
   -importdir <dir> ...... QML1 imports [ARCHDATADIR/imports]
   -qmldir <dir> ......... QML2 imports [ARCHDATADIR/qml]
   -datadir <dir> ........ Arch-independent data [PREFIX]
@@ -61,32 +44,20 @@ except -sysconfdir should be located under -prefix/-hostprefix:
   -hostlibdir <dir> ..... Host libraries [HOSTPREFIX/lib]
   -hostdatadir <dir> .... Data used by qmake [HOSTPREFIX]
 
-Conventions for the remaining options: When an option's description is
-followed by a list of values in brackets, the interpretation is as follows:
-'yes' represents the bare option; all other values are possible prefixes to
-the option, e.g., -no-gui. Alternatively, the value can be assigned, e.g.,
---gui=yes. Values are listed in the order they are tried if not specified;
-'auto' is a shorthand for 'yes/no'. Solitary 'yes' and 'no' represent binary
-options without auto-detection.
+Conventions for the remaining options: When an option's description is followed by a list of values in brackets, the interpretation is as follows: 'yes' represents the bare option; all other values are possible prefixes to the option, e.g., -no-gui. Alternatively, the value can be assigned, e.g., --gui=yes. Values are listed in the order they are tried if not specified; 'auto' is a shorthand for 'yes/no'. Solitary 'yes' and 'no' represent binary options without auto-detection.
 
 Configure meta:
 
   -help, -h ............ Display this help screen
   -verbose, -v ......... Print verbose messages during configuration
   -continue ............ Continue configure despite errors
-  -redo ................ Re-configure with previously used options.
-                         Additional options may be passed, but will not be
-                         saved for later use by -redo.
-  -recheck [test,...] .. Discard cached negative configure test results.
-                         Use this after installing missing dependencies.
-                         Alternatively, if tests are specified, only their
-                         results are discarded.
+  -redo ................ Re-configure with previously used options. Additional options may be passed, but will not be saved for later use by -redo.
+  -recheck [test,...] .. Discard cached negative configure test results. Use this after installing missing dependencies. Alternatively, if tests are specified, only their results are discarded.
   -recheck-all ......... Discard all cached configure test results.
 
   -feature-<feature> ... Enable <feature>
-  -no-feature-<feature>  Disable <feature> [none]
-  -list-features ....... List available features. Note that some features
-                         have dedicated command line options as well.
+  -no-feature-<feature> ... Disable <feature> [none]
+  -list-features ....... List available features. Note that some features have dedicated command line options as well.
 
   -list-libraries ...... List possible external dependencies.
 
@@ -120,41 +91,25 @@ Build options:
   -device <name> ....... Cross-compile for device <name>
   -device-option <key=value> ... Add option for the device mkspec
 
-  -appstore-compliant .. Disable code that is not allowed in platform app stores.
-                         This is on by default for platforms which require distribution
-                         through an app store by default, in particular Android,
-                         iOS, tvOS, watchOS, and Universal Windows Platform. [auto]
+  -appstore-compliant .. Disable code that is not allowed in platform app stores. This is on by default for platforms which require distribution through an app store by default, in particular Android, iOS, tvOS, watchOS, and Universal Windows Platform. [auto]
 
   -qtnamespace <name> .. Wrap all Qt library code in 'namespace <name> {...}'.
   -qtlibinfix <infix> .. Rename all libQt5*.so to libQt5*<infix>.so.
 
   -testcocoon .......... Instrument with the TestCocoon code coverage tool [no]
   -gcov ................ Instrument with the GCov code coverage tool [no]
-  -sanitize {address|thread|memory|undefined}
-                         Instrument with the specified compiler sanitizer.
-                         Note that some sanitizers cannot be combined;
-                         for example, -sanitize address cannot be combined with
-                         -sanitize thread.
+  -sanitize {address|thread|memory|undefined} ... Instrument with the specified compiler sanitizer. Note that some sanitizers cannot be combined; for example, -sanitize address cannot be combined with -sanitize thread.
 
-  -c++std <edition> .... Select C++ standard <edition> [c++1z/c++14/c++11]
-                         (Not supported with MSVC)
+  -c++std <edition> .... Select C++ standard <edition> [c++1z/c++14/c++11] (Not supported with MSVC)
 
   -sse2 ................ Use SSE2 instructions [auto]
-  -sse3/-ssse3/-sse4.1/-sse4.2/-avx/-avx2/-avx512
-                         Enable use of particular x86 instructions [auto]
-                         Enabled ones are still subject to runtime detection.
-  -mips_dsp/-mips_dspr2  Use MIPS DSP/rev2 instructions [auto]
+  -sse3/-ssse3/-sse4.1/-sse4.2/-avx/-avx2/-avx512 ... Enable use of particular x86 instructions [auto] Enabled ones are still subject to runtime detection.
+  -mips_dsp/-mips_dspr2 ... Use MIPS DSP/rev2 instructions [auto]
 
-  -qreal <type> ........ typedef qreal to the specified type. [double]
-                         Note: this affects binary compatibility.
+  -qreal <type> ........ typedef qreal to the specified type. [double] Note: this affects binary compatibility.
 
-  -R <string> .......... Add an explicit runtime library path to the Qt
-                         libraries. Supports paths relative to LIBDIR.
-  -rpath ............... Link Qt libraries and executables using the library
-                         install path as a runtime library path. Similar to
-                         -R LIBDIR. On Apple platforms, disabling this implies
-                         using absolute install names (based in LIBDIR) for
-                         dynamic libraries and frameworks. [auto]
+  -R <string> .......... Add an explicit runtime library path to the Qt libraries. Supports paths relative to LIBDIR.
+  -rpath ............... Link Qt libraries and executables using the library install path as a runtime library path. Similar to -R LIBDIR. On Apple platforms, disabling this implies using absolute install names (based in LIBDIR) for dynamic libraries and frameworks. [auto]
 
   -reduce-exports ...... Reduce amount of exported symbols [auto]
   -reduce-relocations .. Reduce amount of relocations [auto] (Unix only)
@@ -171,8 +126,7 @@ Build options:
   -mp .................. Use multiple processors for compilation (MSVC only)
 
   -warnings-are-errors . Treat warnings as errors [no; yes if -developer-build]
-  -silent .............. Reduce the build output so that warnings and errors
-                         can be seen more easily
+  -silent .............. Reduce the build output so that warnings and errors can be seen more easily
 
 Build environment:
 
@@ -186,52 +140,35 @@ Build environment:
   -L <string> .......... Pass additional library path
   -F <string> .......... Pass additional framework path (Apple only)
 
-  -sdk <sdk> ........... Build Qt using Apple provided SDK <sdk>. The argument
-                         should be one of the available SDKs as listed by
-                         'xcodebuild -showsdks'.
-                         Note that the argument applies only to Qt libraries
-                         and applications built using the target mkspec - not
-                         host tools such as qmake, moc, rcc, etc.
+  -sdk <sdk> ........... Build Qt using Apple provided SDK <sdk>. The argument should be one of the available SDKs as listed by 'xcodebuild -showsdks'. Note that the argument applies only to Qt libraries and applications built using the target mkspec - not host tools such as qmake, moc, rcc, etc.
 
   -android-sdk path .... Set Android SDK root path [$ANDROID_SDK_ROOT]
   -android-ndk path .... Set Android NDK root path [$ANDROID_NDK_ROOT]
   -android-ndk-platform  Set Android platform
-  -android-ndk-host .... Set Android NDK host (linux-x86, linux-x86_64, etc.)
-                         [$ANDROID_NDK_HOST]
-  -android-arch ........ Set Android architecture (armeabi, armeabi-v7a,
-                         arm64-v8a, x86, x86_64, mips, mips64)
+  -android-ndk-host .... Set Android NDK host (linux-x86, linux-x86_64, etc.) [$ANDROID_NDK_HOST]
+  -android-arch ........ Set Android architecture (armeabi, armeabi-v7a, arm64-v8a, x86, x86_64, mips, mips64)
   -android-toolchain-version ... Set Android toolchain version
-  -android-style-assets  Automatically extract style assets from the device at
-                         run time. This option makes the Android style behave
-                         correctly, but also makes the Android platform plugin
-                         incompatible with the LGPL2.1. [yes]
+  -android-style-assets ... Automatically extract style assets from the device at run time. This option makes the Android style behave correctly, but also makes the Android platform plugin incompatible with the LGPL2.1. [yes]
 
 Component selection:
 
   -skip <repo> ......... Exclude an entire repository from the build.
-  -make <part> ......... Add <part> to the list of parts to be built.
-                         Specifying this option clears the default list first.
-                         [libs and examples, also tools if not cross-building,
-                         also tests if -developer-build]
+  -make <part> ......... Add <part> to the list of parts to be built. Specifying this option clears the default list first. [libs and examples, also tools if not cross-building, also tests if -developer-build]
   -nomake <part> ....... Exclude <part> from the list of parts to be built.
   -compile-examples .... When unset, install only the sources of examples [yes]
   -gui ................. Build the Qt GUI module and dependencies [yes]
   -widgets ............. Build the Qt Widgets module and dependencies [yes]
-  -no-dbus ............. Do not build the Qt D-Bus module
-                         [default on Android and Windows]
+  -no-dbus ............. Do not build the Qt D-Bus module [default on Android and Windows]
   -dbus-linked ......... Build Qt D-Bus and link to libdbus-1 [auto]
   -dbus-runtime ........ Build Qt D-Bus and dynamically load libdbus-1 [no]
-  -accessibility ....... Enable accessibility support [yes]
-                         Note: Disabling accessibility is not recommended.
+  -accessibility ....... Enable accessibility support [yes] Note: Disabling accessibility is not recommended.
   -qml-debug ........... Enable QML debugging support [yes]
 
-Qt comes with bundled copies of some 3rd party libraries. These are used
-by default if auto-detection of the respective system library fails.
+Qt comes with bundled copies of some 3rd party libraries. These are used by default if auto-detection of the respective system library fails.
 
 Core options:
 
-  -doubleconversion .... Select used double conversion library [system/qt/no]
-                         No implies use of sscanf_l and snprintf_l (imprecise).
+  -doubleconversion .... Select used double conversion library [system/qt/no] No implies use of sscanf_l and snprintf_l (imprecise).
   -glib ................ Enable Glib support [no; auto on Unix]
   -eventfd ............. Enable eventfd support
   -inotify ............. Enable inotify support
@@ -265,20 +202,16 @@ Gui, printing, widget options:
 
   -fontconfig .......... Enable Fontconfig support [auto] (Unix only)
   -freetype ............ Select used FreeType [system/qt/no]
-  -harfbuzz ............ Select used HarfBuzz-NG [system/qt/no]
-                         (Not auto-detected on Apple and Windows)
+  -harfbuzz ............ Select used HarfBuzz-NG [system/qt/no] (Not auto-detected on Apple and Windows)
 
   -gtk ................. Enable GTK platform theme support [auto]
 
   -lgmon ............... Enable lgmon support [auto] (QNX only)
 
   -no-opengl ........... Disable OpenGL support
-  -opengl <api> ........ Enable OpenGL support. Supported APIs:
-                         es2 (default on Windows), desktop (default on Unix),
-                         dynamic (Windows only)
+  -opengl <api> ........ Enable OpenGL support. Supported APIs: es2 (default on Windows), desktop (default on Unix), dynamic (Windows only)
   -opengles3 ........... Enable OpenGL ES 3.x support instead of ES 2.x [auto]
-  -angle ............... Use bundled ANGLE to support OpenGL ES 2.0 [auto]
-                         (Windows only)
+  -angle ............... Use bundled ANGLE to support OpenGL ES 2.0 [auto] (Windows only)
   -combined-angle-lib .. Merge LibEGL and LibGLESv2 into LibANGLE (Windows only)
 
   -qpa <name> .......... Select default QPA backend (e.g., xcb, cocoa, windows)
@@ -292,8 +225,7 @@ Gui, printing, widget options:
     -kms ............... Enable backends for KMS [auto] (Linux only)
     -linuxfb ........... Enable Linux Framebuffer support [auto] (Linux only)
     -mirclient ......... Enable Mir client support [no] (Linux only)
-    -xcb ............... Select used xcb-* libraries [system/qt/no]
-                         (-qt-xcb still uses system version of libxcb itself)
+    -xcb ............... Select used xcb-* libraries [system/qt/no] (-qt-xcb still uses system version of libxcb itself)
 
   Input backends:
     -evdev ............. Enable evdev support [auto]
@@ -302,12 +234,9 @@ Gui, printing, widget options:
     -mtdev ............. Enable mtdev support [auto]
     -tslib ............. Enable tslib support [auto]
     -xinput2 ........... Enable XInput2 support [auto]
-    -xkbcommon-x11 ..... Select xkbcommon used in combination with xcb
-                         [system/qt/no]
-    -xkb-config-root <dir> ... With -qt-xkbcommon-x11, set default XKB config
-                               root <dir> [detect]
-    -xkbcommon-evdev ... Enable X-less xkbcommon in combination with libinput
-                         [auto]
+    -xkbcommon-x11 ..... Select xkbcommon used in combination with xcb [system/qt/no]
+    -xkb-config-root <dir> ... With -qt-xkbcommon-x11, set default XKB config root <dir> [detect]
+    -xkbcommon-evdev ... Enable X-less xkbcommon in combination with libinput [auto]
 
   Image formats:
     -gif ............... Enable reading support for GIF [auto]
@@ -317,9 +246,7 @@ Gui, printing, widget options:
 
 Database options:
 
-  -sql-<driver> ........ Enable SQL <driver> plugin. Supported drivers:
-                         db2 ibase mysql oci odbc psql sqlite2 sqlite tds
-                         [all auto]
+  -sql-<driver> ........ Enable SQL <driver> plugin. Supported drivers: db2 ibase mysql oci odbc psql sqlite2 sqlite tds [all auto]
   -sqlite .............. Select used sqlite3 [system/qt]
 
 Qt3D options:
@@ -333,10 +260,8 @@ Multimedia options:
   -pulseaudio .......... Enable PulseAudio support [auto] (Unix only)
   -alsa ................ Enable ALSA support [auto] (Unix only)
   -no-gstreamer ........ Disable support for GStreamer
-  -gstreamer [version] . Enable GStreamer support [auto]
-                         With no parameter, 1.0 is tried first, then 0.10.
-  -mediaplayer-backend <name> ... Select media player backend (Windows only)
-                                  Supported backends: directshow (default), wmf
+  -gstreamer [version] . Enable GStreamer support [auto] With no parameter, 1.0 is tried first, then 0.10.
+  -mediaplayer-backend <name> ... Select media player backend (Windows only) Supported backends: directshow (default), wmf
 
 Webengine options:
 
