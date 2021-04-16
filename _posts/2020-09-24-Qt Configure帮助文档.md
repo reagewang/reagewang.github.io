@@ -49,26 +49,26 @@ Conventions for the remaining options: When an option's description is followed 
 Configure meta:
 
   -help, -h ............ Display this help screen
-  -verbose, -v ......... Print verbose messages during configuration
-  -continue ............ Continue configure despite errors
+  -verbose, -v ......... Print verbose messages during configuration 在配置过程中打印详细消息
+  -continue ............ Continue configure despite errors 发生错误，继续编译
   -redo ................ Re-configure with previously used options. Additional options may be passed, but will not be saved for later use by -redo.
   -recheck [test,...] .. Discard cached negative configure test results. Use this after installing missing dependencies. Alternatively, if tests are specified, only their results are discarded.
   -recheck-all ......... Discard all cached configure test results.
 
   -feature-<feature> ... Enable <feature>
   -no-feature-<feature> ... Disable <feature> [none]
-  -list-features ....... List available features. Note that some features have dedicated command line options as well.
+  -list-features ....... List available features. Note that some features have dedicated command line options as well. 可用功能列表。注意，有些特性也有专门的命令行选项。
 
-  -list-libraries ...... List possible external dependencies.
+  -list-libraries ...... List possible external dependencies. 列出可能的外部依赖关系。
 
 Build options:
 
-  -opensource .......... Build the Open-Source Edition of Qt
-  -commercial .......... Build the Commercial Edition of Qt
-  -confirm-license ..... Automatically acknowledge the license
+  -opensource .......... Build the Open-Source Edition of Qt 构建开源版本
+  -commercial .......... Build the Commercial Edition of Qt 构建商业版
+  -confirm-license ..... Automatically acknowledge the license 自动确认许可证
 
-  -release ............. Build Qt with debugging turned off [yes]
-  -debug ............... Build Qt with debugging turned on [no]
+  -release ............. Build Qt with debugging turned off [yes] 构建发布版
+  -debug ............... Build Qt with debugging turned on [no] 构建调试版
   -debug-and-release ... Build two versions of Qt, with and without
                          debugging turned on [yes] (Apple and Windows only)
   -optimize-debug ...... Enable debug-friendly optimizations in debug builds
@@ -82,16 +82,16 @@ Build options:
   -developer-build ..... Compile and link Qt for developing Qt itself
                          (exports for auto-tests, extra checks, etc.) [no]
 
-  -shared .............. Build shared Qt libraries [yes] (no for UIKit)
-  -static .............. Build static Qt libraries [no] (yes for UIKit)
-  -framework ........... Build Qt framework bundles [yes] (Apple only)
+  -shared .............. Build shared Qt libraries [yes] (no for UIKit) 构建动态Qt库
+  -static .............. Build static Qt libraries [no] (yes for UIKit) 构建静态Qt库
+  -framework ........... Build Qt framework bundles [yes] (Apple only) 构建Qt框架包
 
   -platform <target> ... Select host mkspec [detected]
-  -xplatform <target> .. Select target mkspec when cross-compiling [PLATFORM]
+  -xplatform <target> .. Select target mkspec when cross-compiling [PLATFORM] 选择编译器
   -device <name> ....... Cross-compile for device <name>
   -device-option <key=value> ... Add option for the device mkspec
 
-  -appstore-compliant .. Disable code that is not allowed in platform app stores. This is on by default for platforms which require distribution through an app store by default, in particular Android, iOS, tvOS, watchOS, and Universal Windows Platform. [auto]
+  -appstore-compliant .. Disable code that is not allowed in platform app stores. This is on by default for platforms which require distribution through an app store by default, in particular Android, iOS, tvOS, watchOS, and Universal Windows Platform. [auto] 禁用平台应用商店中不允许使用的代码。对于那些需要通过默认应用商店进行发行的平台，特别是Android、iOS、tvOS、watchOS和通用Windows平台，这是默认开启的。
 
   -qtnamespace <name> .. Wrap all Qt library code in 'namespace <name> {...}'.
   -qtlibinfix <infix> .. Rename all libQt5*.so to libQt5*<infix>.so.
@@ -102,31 +102,31 @@ Build options:
 
   -c++std <edition> .... Select C++ standard <edition> [c++1z/c++14/c++11] (Not supported with MSVC)
 
-  -sse2 ................ Use SSE2 instructions [auto]
-  -sse3/-ssse3/-sse4.1/-sse4.2/-avx/-avx2/-avx512 ... Enable use of particular x86 instructions [auto] Enabled ones are still subject to runtime detection.
-  -mips_dsp/-mips_dspr2 ... Use MIPS DSP/rev2 instructions [auto]
+  -sse2 ................ Use SSE2 instructions [auto] 使用SSE2指令
+  -sse3/-ssse3/-sse4.1/-sse4.2/-avx/-avx2/-avx512 ... Enable use of particular x86 instructions [auto] Enabled ones are still subject to runtime detection. 启用特定的x86指令,启用的指令仍然受运行时检测。
+  -mips_dsp/-mips_dspr2 ... Use MIPS DSP/rev2 instructions [auto] 使用MIPS DSP/rev2指令
 
   -qreal <type> ........ typedef qreal to the specified type. [double] Note: this affects binary compatibility.
 
-  -R <string> .......... Add an explicit runtime library path to the Qt libraries. Supports paths relative to LIBDIR.
-  -rpath ............... Link Qt libraries and executables using the library install path as a runtime library path. Similar to -R LIBDIR. On Apple platforms, disabling this implies using absolute install names (based in LIBDIR) for dynamic libraries and frameworks. [auto]
+  -R <string> .......... Add an explicit runtime library path to the Qt libraries. Supports paths relative to LIBDIR. 向Qt库添加一个显式的运行时库路径。支持相对于LIBDIR的路径。
+  -rpath ............... Link Qt libraries and executables using the library install path as a runtime library path. Similar to -R LIBDIR. On Apple platforms, disabling this implies using absolute install names (based in LIBDIR) for dynamic libraries and frameworks. [auto] 使用库安装路径作为运行时库路径链接Qt库和可执行文件。类似于-R LIBDIR。在Apple平台上，禁用此功能意味着对动态库和框架使用绝对安装名(基于LIBDIR)。
 
-  -reduce-exports ...... Reduce amount of exported symbols [auto]
+  -reduce-exports ...... Reduce amount of exported symbols [auto] 减少输出符号的数量
   -reduce-relocations .. Reduce amount of relocations [auto] (Unix only)
 
   -plugin-manifests .... Embed manifests into plugins [no] (Windows only)
   -static-runtime ...... With -static, use static runtime [no] (Windows only)
 
-  -pch ................. Use precompiled headers [auto]
+  -pch ................. Use precompiled headers [auto] 使用预编译头
   -ltcg ................ Use Link Time Code Generation [no]
-  -use-gold-linker ..... Use the GNU gold linker [auto]
+  -use-gold-linker ..... Use the GNU gold linker [auto] 使用GNU链接器
   -incredibuild-xge .... Use the IncrediBuild XGE [no] (Windows only)
   -ccache .............. Use the ccache compiler cache [no] (Unix only)
   -make-tool <tool> .... Use <tool> to build qmake [nmake] (Windows only)
   -mp .................. Use multiple processors for compilation (MSVC only)
 
   -warnings-are-errors . Treat warnings as errors [no; yes if -developer-build]
-  -silent .............. Reduce the build output so that warnings and errors can be seen more easily
+  -silent .............. Reduce the build output so that warnings and errors can be seen more easily 减少构建输出，以便更容易看到警告和错误
 
 Build environment:
 
