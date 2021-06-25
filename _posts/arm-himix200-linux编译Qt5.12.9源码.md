@@ -71,7 +71,7 @@ QT根目录新建脚本文件configure.sh增加执行权限,配置如下：
 -release \
 -shared \
 -xplatform arm-himix200-linux-g++ \
--prefix /opt/qt5.12.9_hi3559av100_release \
+-prefix /opt/qt5.12.9_hi3516dv300_release \
 -opengl es2 \
 -eglfs
 -make libs \
@@ -94,7 +94,7 @@ QT根目录新建脚本文件configure.sh增加执行权限,配置如下：
 #!/bin/bash
 ./../qt-everywhere-src-5.12.9/configure \
 -xplatform arm-himix200-linux-g++ \
--prefix /opt/qt5.12.9_hi3559av100_release_debug \
+-prefix /opt/qt5.12.9_hi3516dv300_release_debug \
 -v \
 -opensource \
 -confirm-license \
