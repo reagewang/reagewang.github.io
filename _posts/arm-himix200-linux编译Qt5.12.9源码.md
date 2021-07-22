@@ -172,3 +172,6 @@ sudo apt install lib32z1-dev
 `arm-himix200-linux -v`
 
 即可出现gcc的版本信息，表示gcc安装成功。
+
+编译过程中报qtserialbus模块错误
+增加 -skip qtserialbus
