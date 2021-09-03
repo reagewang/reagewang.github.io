@@ -116,6 +116,7 @@ QT根目录新建脚本文件configure.sh增加执行权限,配置如下：
 -I/home/wh/nfsdir/tslib3559/include -L/home/wh/nfsdir/tslib3559/lib | tee ./qt_configure_information
 ```
 
+# 编译不需要openGL的版本
 ```
 #!/bin/bash
 ./../qt-everywhere-src-5.12.9/configure \
